@@ -18,7 +18,8 @@ public class Professor {
                 '}';
     }
 
-    private Long DNI;
+    private Long id;
+    private String DNI;
     private String name;
     private String surname;
     private String category;
@@ -28,13 +29,13 @@ public class Professor {
 
     }
 
-    public Professor(long DNI, String name, String surname, String category) {
+    public Professor(Long id, String DNI, String name, String surname, String category) {
+        this.id = id;
         this.DNI = DNI;
         this.name = name;
         this.surname = surname;
         this.category = category;
     }
-
 
     public String getName() {
         return name;
@@ -60,11 +61,19 @@ public class Professor {
         this.category = category;
     }
 
-    public void setDNI(Long id) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDNI(String id) {
         this.DNI = id;
     }
 
-    public Long getDNI() {
+    public String getDNI() {
         return DNI;
     }
 }

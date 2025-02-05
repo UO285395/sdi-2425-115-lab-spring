@@ -7,53 +7,53 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
 
     @RequestMapping("/professor/add")
-    public String getProfessor() {
-        return "Adding professor";
+    public String getProfessor(Model professorModel) {
+
+        return "/professor/add";
     }
 
     @RequestMapping(value ="/professor/add", method = RequestMethod.POST)
-    public String setProfessor() {
-        professorService.addProfessors(new Professor());
-        return "Adding professor";
+    public String setProfessor(@ModelAttribute Professor professor) {
+        professorService.addProfessor(professor);
+        return "redirect:professor/list";
     }
 
     @RequestMapping(value ="/professor/edit", method = RequestMethod.POST)
     public String setEdit() {
-        return "Editing professor";
+        return "professor/edit";
     }
 
 
     @RequestMapping("/professor/list")
-    public String getProfessorList(){
-        return professorService.getListProfessors();
+    public String getList(Model model){
+        model.addAttribute("professorList", professorService.getProfessors());
+        return "/professor/list";
     }
 
     @RequestMapping("/professor/delete/{id}")
     public String deleteProfessor(@PathVariable Long id){
-        professorService.deleteProfessors(professorService.getProfessor(id));
-        return "Deleting professor => " + id;
+        professorService.deleteProfessor(id);
+        return "redirect:/professor/list";
     }
 
     @RequestMapping("/professor/edit/{id}")
     public String editProfessor(@PathVariable Long id){
 
-        return "Editing professor " + id;
+        return "professor/edit";
     }
 
-    @RequestMapping("/professor/details")
-    public String detailsProfessor(@RequestParam Long id){
-        return "Details professor => " + id;
+    @RequestMapping("/professor/details/{id}")
+    public String getDetail(Model model, @PathVariable Long id){
+        model.addAttribute("professor", professorService.getProfessor(id));
+        return "professor/details";
     }
-
-
-
 
 
 }

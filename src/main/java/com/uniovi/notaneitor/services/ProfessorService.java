@@ -14,20 +14,20 @@ public class ProfessorService {
 
     @PostConstruct
     public void init() {
-        professors.add(new Professor(1, "Carmelo", "Suarez", "Catedratico"));
-        professors.add(new Professor(2, "Paco", "Fernandez", "Profesor adjunto"));
+        professors.add(new Professor(1L,"123", "Carmelo", "Suarez", "Catedratico"));
+        professors.add(new Professor(2L,"1234", "Paco", "Fernandez", "Profesor adjunto"));
     }
 
 
-   public String getListProfessors() {
-    return professors.toString();
+   public List<Professor> getProfessors() {
+    return professors;
    }
 
-   public Professor getProfessor(Long id) {
-       return professors.getFirst();
-   }
+    public Professor getProfessor(Long id) {
+        return professors.stream().filter(professor->professor.getId().equals(id)).findFirst().get();
+    }
 
-   public void addProfessors(Professor professor) {
+   public void addProfessor(Professor professor) {
     professors.add(professor);
    }
 
@@ -35,8 +35,8 @@ public class ProfessorService {
        return professor.toString();
    }
 
-   public void deleteProfessors(Professor professor) {
-    professors.remove(professor);
+   public void deleteProfessor(Long id) {
+    professors.removeIf(professor-> professor.getId().equals(id));
    }
 
 }
