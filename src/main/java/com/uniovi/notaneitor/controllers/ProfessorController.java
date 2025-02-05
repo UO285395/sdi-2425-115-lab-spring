@@ -22,7 +22,7 @@ public class ProfessorController {
     @RequestMapping(value ="/professor/add", method = RequestMethod.POST)
     public String setProfessor(@ModelAttribute Professor professor) {
         professorService.addProfessor(professor);
-        return "redirect:professor/list";
+        return "redirect:/professor/list";
     }
 
     @RequestMapping(value ="/professor/edit", method = RequestMethod.POST)
