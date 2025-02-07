@@ -1,6 +1,5 @@
 package com.uniovi.notaneitor.controllers;
 
-import com.uniovi.notaneitor.entities.Mark;
 import com.uniovi.notaneitor.entities.Professor;
 import com.uniovi.notaneitor.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,7 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @RequestMapping("/professor/add")
-    public String getProfessor(Model professorModel) {
-
+    public String getProfessor() {
         return "/professor/add";
     }
 
