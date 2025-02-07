@@ -42,13 +42,13 @@ public class ProfessorController {
     @RequestMapping("/professor/details/{id}")
     public String getDetail(Model model, @PathVariable Long id){
         model.addAttribute("professor", professorService.getProfessor(id));
-        return "professor/details";
+        return "/professor/details";
     }
 
     @RequestMapping(value = "/professor/edit/{id}")
     public String getEdit(Model model, @PathVariable Long id) {
         model.addAttribute("professor", professorService.getProfessor(id));
-        return "professor/edit";
+        return "/professor/edit";
     }
 
     @RequestMapping(value="/professor/edit/{id}", method=RequestMethod.POST)

@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/head">
     <title>Notaneitor</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -15,7 +15,7 @@
 
 </head>
 <body>
-
+<nav th:replace="fragments/nav"> </nav>
 <div class="container" id="main-container">
     <h2>Editar Profesor</h2>
     <form class="form-horizontal" method="post" th:action="${'/professor/edit/' + professor.id}">
@@ -48,6 +48,6 @@
     </form>
 </div>
 
-
+<footer th:replace="fragments/footer"></footer>
 </body>
 </html>

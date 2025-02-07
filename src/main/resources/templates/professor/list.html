@@ -1,9 +1,10 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/head">
     <title>Professors</title>
     <meta charset="utf-8"/> </head>
 <body>
+<nav th:replace="fragments/nav"> </nav>
 <h2>Lista de profesores</h2>
     <div th:each="professor: ${professorList}">
         <p>
@@ -16,5 +17,6 @@
         </p>
 
     </div>
+<footer th:replace="fragments/footer"></footer>
 </body>
 </html>
