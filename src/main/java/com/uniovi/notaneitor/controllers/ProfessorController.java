@@ -1,5 +1,6 @@
 package com.uniovi.notaneitor.controllers;
 
+import com.uniovi.notaneitor.entities.Mark;
 import com.uniovi.notaneitor.entities.Professor;
 import com.uniovi.notaneitor.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,6 @@ public class ProfessorController {
         return "redirect:/professor/list";
     }
 
-    @RequestMapping(value ="/professor/edit", method = RequestMethod.POST)
-    public String setEdit() {
-        return "professor/edit";
-    }
-
 
     @RequestMapping("/professor/list")
     public String getList(Model model){
@@ -43,16 +39,23 @@ public class ProfessorController {
         return "redirect:/professor/list";
     }
 
-    @RequestMapping("/professor/edit/{id}")
-    public String editProfessor(@PathVariable Long id){
-
-        return "professor/edit";
-    }
-
     @RequestMapping("/professor/details/{id}")
     public String getDetail(Model model, @PathVariable Long id){
         model.addAttribute("professor", professorService.getProfessor(id));
         return "professor/details";
+    }
+
+    @RequestMapping(value = "/professor/edit/{id}")
+    public String getEdit(Model model, @PathVariable Long id) {
+        model.addAttribute("professor", professorService.getProfessor(id));
+        return "professor/edit";
+    }
+
+    @RequestMapping(value="/professor/edit/{id}", method=RequestMethod.POST)
+    public String setEdit(@ModelAttribute Professor professor, @PathVariable Long id){
+        professor.setId(id);
+        professorService.addProfessor(professor);
+        return "redirect:/professor/details/"+id;
     }
 
 

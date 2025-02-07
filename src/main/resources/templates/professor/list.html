@@ -11,6 +11,7 @@
             <span th:text="${professor.surname}"></span>
             <span th:text="${professor.category}"></span>
             <a th:href="${'/professor/details/' + professor.id}">detalles</a>
+            <a th:href="${'/professor/edit/' + professor.id}">editar</a>
             <a th:href="${'/professor/delete/' + professor.id}">delete</a>
         </p>
 
