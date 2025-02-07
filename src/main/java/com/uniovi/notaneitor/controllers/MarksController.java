@@ -69,6 +69,12 @@ public String getMark(){
         return "mark/edit";
     }
 
+    @RequestMapping("/mark/list/update")
+    public String updateList(Model model) {
+    model.addAttribute("markList",marksService.getMarks());
+    return "mark/list::marksTable";
+    }
+
     @RequestMapping(value="/mark/edit/{id}", method=RequestMethod.POST)
     public String setEdit(@ModelAttribute Mark mark, @PathVariable Long id){
         mark.setId(id);
