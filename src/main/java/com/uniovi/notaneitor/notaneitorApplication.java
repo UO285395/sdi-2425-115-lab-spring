@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NotaneitorAplication {
+public class notaneitorApplication {
     public static void main(String[] args) {
-        SpringApplication.run(NotaneitorAplication.class, args);
+        SpringApplication.run(notaneitorApplication.class, args);
 
     }
 }

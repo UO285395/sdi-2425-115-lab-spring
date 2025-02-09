@@ -2,7 +2,6 @@ package com.uniovi.notaneitor.services;
 
 import com.uniovi.notaneitor.entities.Professor;
 import com.uniovi.notaneitor.repositories.ProfessorRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +37,7 @@ public class ProfessorService {
        professorRepository.save(professor);
    }
 
-   public String detailsProfessor(Professor professor) {
-       return professor.toString();
-   }
-
-   public void deleteProfessor(Long id) {
+    public void deleteProfessor(Long id) {
 //    professors.removeIf(professor-> professor.getId().equals(id));
    professorRepository.deleteById(id);
    }

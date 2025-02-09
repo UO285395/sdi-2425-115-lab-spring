@@ -1,9 +1,7 @@
 package com.uniovi.notaneitor.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Professor {
@@ -17,6 +15,7 @@ public class Professor {
                 ", category='" + category + '\'' +
                 '}';
     }
+
     @Id
     @GeneratedValue
     private Long id;
