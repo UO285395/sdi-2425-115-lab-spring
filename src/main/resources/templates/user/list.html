@@ -8,8 +8,14 @@
     <h2>Usuarios</h2>
     <p>Los usuarios que actualmente figuran en el sistema son los
         siguientes:</p>
+    <button type="button" id="updateButton" class="btn btn-primary">Actualizar</button>
+    <script>
+        $( "#updateButton" ).click(function() {
+            $("#usersTable").load('/user/list/update');
+        });
+    </script>
     <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover" th:fragment="usersTable" id="usersTable">
             <thead>
             <tr>
                 <th scope="col">DNI</th>
@@ -25,8 +31,8 @@
             <tbody>
             <tr th:each="user : ${usersList}">
                 <td th:text="${user.dni}">71888888X</td>
-                <td th:text="${user.name}">Nombre del alumno</td>
-                <td th:text="${user.lastName}">Apellidos del alumno</td>
+                <td th:text="${user.name}">Nombre</td>
+                <td th:text="${user.lastName}">Apellidos</td>
                 <td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
                 <td><a th:href="${'/user/edit/' + user.id}">modificar</a></td>
                 <td><a th:href="${'/user/delete/' + user.id}">eliminar</a></td>

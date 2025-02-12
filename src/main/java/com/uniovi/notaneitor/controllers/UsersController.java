@@ -29,6 +29,7 @@ public class UsersController {
         model.addAttribute("usersList", usersService.getUsers());
         return "user/list";
     }
+
     @RequestMapping(value = "/user/add")
     public String getUser(Model model) {
         model.addAttribute("usersList", usersService.getUsers());
@@ -39,11 +40,13 @@ public class UsersController {
         usersService.addUser(user);
         return "redirect:/user/list";
     }
+
     @RequestMapping("/user/details/{id}")
     public String getDetail(Model model, @PathVariable Long id) {
         model.addAttribute("user", usersService.getUser(id));
         return "user/details";
     }
+
     @RequestMapping("/user/delete/{id}")
     public String delete(@PathVariable Long id) {
         usersService.deleteUser(id);
@@ -55,11 +58,20 @@ public class UsersController {
         model.addAttribute("user", user);
         return "/user/edit";
     }
+
     @RequestMapping(value = "/user/edit/{id}", method = RequestMethod.POST)
     public String setEdit(@PathVariable Long id, @ModelAttribute User user) {
-        usersService.addUser(user);
-        return "redirect:/user/details/" + id;
+        User originalUser = usersService.getUser(id);
+
+        //Modificar solo Nombre, apellidos y DNI
+        originalUser.setDni(user.getDni());
+        originalUser.setName(user.getName());
+        originalUser.setLastName(user.getLastName());
+
+        usersService.updateUser(originalUser);
+        return "redirect:/user/details/"+id;
     }
+
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
         model.addAttribute("user", new User());
@@ -91,6 +103,11 @@ public class UsersController {
         model.addAttribute("markList", activeUser.getMarks());
         return "home";
     }
-    
+
+    @RequestMapping("/user/list/update")
+    public String updateList(Model model) {
+        model.addAttribute("usersList",usersService.getUsers());
+        return "user/list::usersTable";
+    }
 
 }
