@@ -2,18 +2,23 @@ package com.uniovi.notaneitor.controllers;
 
 import com.uniovi.notaneitor.services.MarksService;
 import com.uniovi.notaneitor.services.UsersService;
+import com.uniovi.notaneitor.validators.AddMarksValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.uniovi.notaneitor.entities.*;
+import org.springframework.validation.annotation.Validated;
 
 
 @Controller
 public class MarksController {
 
+    private final AddMarksValidator addMarksValidator;
     private final MarksService marksService;
     private final UsersService usersService;
-    public MarksController(MarksService marksService, UsersService usersService) {
+    public MarksController(AddMarksValidator addMarksValidator, MarksService marksService, UsersService usersService) {
+        this.addMarksValidator = addMarksValidator;
         this.marksService = marksService;
         this.usersService = usersService;
     }
@@ -30,14 +35,18 @@ public String getList(Model model){
 }
 
 
-@RequestMapping(value="/mark/add")
+@RequestMapping("/mark/add")
 public String getMark(Model model){
-     model.addAttribute("usersList", usersService.getUsers());
-     return "mark/add";
+     model.addAttribute("mark", new Mark());
+     return "/mark/add";
 }
 
-    @RequestMapping( value = "/mark/add", method = RequestMethod.POST)
-    public String setMark(@ModelAttribute Mark mark) {
+@RequestMapping( value ="/mark/add", method = RequestMethod.POST)
+public String setMark(@Validated Mark mark, BindingResult result) {
+        addMarksValidator.validate(mark, result);
+        if(result.hasErrors()){
+            return "/mark/add";
+        }
         marksService.addMark(mark);
         return "redirect:/mark/list";
     }

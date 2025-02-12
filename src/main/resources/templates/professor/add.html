@@ -17,7 +17,7 @@
 <nav th:replace="fragments/nav"> </nav>
 <div class="container" id="main-container">
   <h2>Agregar Profesor</h2>
-  <form class="form-horizontal" method="post" action="/professor/add">
+  <form class="form-horizontal" method="post" action="/professor/add" th:object="professor">
     <div class="form-group">
       <label class="control-label col-sm-2" for="name">Nombre:</label>
       <div class="col-sm-10">
