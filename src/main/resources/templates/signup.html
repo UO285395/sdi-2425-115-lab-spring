@@ -5,10 +5,10 @@
 <!-- Barra de Navegación superior -->
 <nav th:replace="fragments/nav"></nav>
 <div class="container">
-    <h2>Regístrate como usuario</h2>
+    <h2 th:text="#{register.user}"></h2>
     <form class="form-horizontal"  action="/signup" th:object="${user}">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="dni">DNI:</label>
+            <label class="control-label col-sm-2" for="dni" th:text="#{dni}"></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="dni" name="dni"
                        placeholder="99999999Y" required="true"/>
@@ -16,7 +16,7 @@
             <span class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Nombre:</label>
+            <label class="control-label col-sm-2" for="name" th:text="#{professor.name}"></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="name" name="name"
                        placeholder="Ejemplo: Juan" required="true"/>
@@ -24,7 +24,7 @@
             <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="lastName">Apellidos:</label>
+            <label class="control-label col-sm-2" for="lastName" th:text="#{professor.surname}"></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="lastName" name="lastName"
                        placeholder="Ejemplo: Peréz Almonte" required="true"/>
@@ -32,7 +32,7 @@
             <span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="password">Password:</label>
+            <label class="control-label col-sm-2" for="password" th:text="#{password}"></label>
             <div class="col-sm-10">
                 <input type="password" class="form-control" id="password" name="password"
                        placeholder="Entre el Password" />
@@ -40,8 +40,7 @@
             <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
         </div>
         <div class="form-group" >
-            <label class="control-label col-sm-2" id="passwordConfirm" for="passwordConfirm">Repita
-                el Password:</label>
+            <label class="control-label col-sm-2" id="passwordConfirm" for="passwordConfirm" th:text="#{repeat.password}"></label>
             <div class="col-sm-10">
                 <input type="password" class="form-control" name="passwordConfirm"
                        placeholder="Repita el Password" />
@@ -51,7 +50,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary" th:text="#{password}"></button>
             </div>
         </div>
     </form>
