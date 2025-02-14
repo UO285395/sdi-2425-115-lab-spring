@@ -2,11 +2,12 @@ package com.uniovi.notaneitor.validators;
 import com.uniovi.notaneitor.entities.Professor;
 import com.uniovi.notaneitor.services.ProfessorService;
 import com.uniovi.notaneitor.services.UsersService;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-
+@Component
 public class AddProfessorValidator implements Validator{
     private final ProfessorService professorService;
 

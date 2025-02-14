@@ -93,8 +93,14 @@ public String setMark(@Validated Mark mark, BindingResult result) {
 
 
     @RequestMapping(value = "/mark/edit/{id}", method = RequestMethod.POST)
-    public String setEdit(@ModelAttribute Mark mark, @PathVariable Long id) {
+    public String setEdit(@Validated Mark mark, BindingResult result, @PathVariable Long id) {
         Mark originalMark = marksService.getMark(id);
+        addMarksValidator.validate(mark, result);
+
+        if(result.hasErrors()){
+           return "mark/edit";
+        }
+
         // modificar solo score y description
         originalMark.setScore(mark.getScore());
         originalMark.setDescription(mark.getDescription());

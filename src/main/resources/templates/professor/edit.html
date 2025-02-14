@@ -18,13 +18,15 @@
 <nav th:replace="fragments/nav"> </nav>
 <div class="container" id="main-container">
     <h2>Editar Profesor</h2>
-    <form class="form-horizontal" method="post" th:action="${'/professor/edit/' + professor.id}">
+    <form class="form-horizontal" method="post" th:action="${'/professor/edit/' + professor.id}" th:object="${professor}">
         <div class="form-group">
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
                 <input th:value="${professor.name}" id="name" type="text" class="form-control" name="name"
                        placeholder="Federico" required="true"/>
             </div>
+            <span class="text-danger" th:if="${#fields.hasErrors('name')}"></span>
+
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="surname">Surname:</label>
@@ -32,6 +34,8 @@
                 <input th:value="${professor.surname}" id="surname" type="text" class="form-control" name="surname"
                        placeholder="Fernandez" required="true"/>
             </div>
+            <span class="text-danger" th:if="${#fields.hasErrors('surname')}"></span>
+
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="category">Category:</label>
@@ -39,6 +43,8 @@
                 <input th:value="${professor.category}" id="category" type="text" class="form-control" name="category"
                        placeholder="Federico" required="true"/>
             </div>
+            <span class="text-danger" th:if="${#fields.hasErrors('category')}"></span>
+
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

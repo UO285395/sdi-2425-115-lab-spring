@@ -11,7 +11,7 @@ public class Professor {
         return "Professor{" +
                 "DNI=" + DNI +
                 ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", surname='" + lastName + '\'' +
                 ", category='" + category + '\'' +
                 '}';
     }
@@ -21,7 +21,7 @@ public class Professor {
     private Long id;
     private String DNI;
     private String name;
-    private String surname;
+    private String lastName;
     private String category;
 
 
@@ -33,7 +33,7 @@ public class Professor {
         this.id = id;
         this.DNI = DNI;
         this.name = name;
-        this.surname = surname;
+        this.lastName = surname;
         this.category = category;
     }
 
@@ -46,11 +46,11 @@ public class Professor {
     }
 
     public String getSurname() {
-        return surname;
+        return lastName;
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        this.lastName = surname;
     }
 
     public String getCategory() {

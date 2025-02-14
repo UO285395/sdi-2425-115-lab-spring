@@ -30,8 +30,8 @@ public class AddMarksValidator implements Validator {
         if (mark.getScore() < 0 || mark.getScore() > 10) {
             errors.rejectValue("score", "Error.addMark.score.value");
         }
-        if (mark.getDescription().length() < 20) {
-            errors.rejectValue("description", "Error.addMark.description.length");
-        }
+//        if (mark.getDescription().length() < 20) {
+//            errors.rejectValue("description", "Error.addMark.description.length");
+//        }
     }
 }
