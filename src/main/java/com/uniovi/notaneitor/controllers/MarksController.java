@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import com.uniovi.notaneitor.entities.*;
 import org.springframework.validation.annotation.Validated;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Controller
 public class MarksController {
-
+    private final HttpSession httpSession;
     private final AddMarksValidator addMarksValidator;
     private final MarksService marksService;
     private final UsersService usersService;
-    public MarksController(AddMarksValidator addMarksValidator, MarksService marksService, UsersService usersService) {
+    public MarksController(HttpSession httpSession, AddMarksValidator addMarksValidator, MarksService marksService, UsersService usersService) {
+        this.httpSession = httpSession;
         this.addMarksValidator = addMarksValidator;
         this.marksService = marksService;
         this.usersService = usersService;
@@ -28,11 +33,15 @@ public class MarksController {
 //    public String getList(){
 //        return marksService.getMarks().toString();
 //    }
-@RequestMapping("/mark/list")
-public String getList(Model model){
-    model.addAttribute("markList",marksService.getMarks());
-    return "mark/list";
-}
+    @RequestMapping("/mark/list")
+    public String getList(Model model) {
+        Set<Mark> consultedList = (Set<Mark>) (httpSession.getAttribute("consultedList") != null ?
+                httpSession.getAttribute("consultedList") : new HashSet<>());
+        model.addAttribute("consultedList", consultedList);
+        model.addAttribute("marksList", marksService.getMarks());
+        return "mark/list";
+    }
+
 
 
 @RequestMapping("/mark/add")
