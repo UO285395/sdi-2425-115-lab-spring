@@ -1,5 +1,6 @@
 package com.uniovi.notaneitor.controllers;
 
+import com.uniovi.notaneitor.services.RolesService;
 import com.uniovi.notaneitor.services.SecurityService;
 import com.uniovi.notaneitor.validators.SignUpFormValidator;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,13 @@ public class UsersController {
     private final UsersService usersService;
     private final SecurityService securityService;
 
-    public UsersController(SignUpFormValidator signUpFormValidator, UsersService usersService, SecurityService securityService) {
+    private final RolesService rolesService;
+
+    public UsersController(SignUpFormValidator signUpFormValidator, UsersService usersService, SecurityService securityService, RolesService rolesService) {
         this.signUpFormValidator = signUpFormValidator;
         this.usersService = usersService;
         this.securityService = securityService;
+        this.rolesService = rolesService;
     }
 
     @RequestMapping("/user/list")
@@ -32,7 +36,7 @@ public class UsersController {
 
     @RequestMapping(value = "/user/add")
     public String getUser(Model model) {
-        model.addAttribute("usersList", usersService.getUsers());
+        model.addAttribute("rolesList", rolesService.getRoles());
         return "user/add";
     }
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
@@ -78,16 +82,16 @@ public class UsersController {
         return "signup";
     }
 
-    @RequestMapping(value="/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signup(@Validated User user, BindingResult result) {
         signUpFormValidator.validate(user, result);
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "signup";
         }
-
+        user.setRole(rolesService.getRoles()[0]);
         usersService.addUser(user);
         securityService.autoLogin(user.getDni(), user.getPasswordConfirm());
-        return "redirect:home";
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
