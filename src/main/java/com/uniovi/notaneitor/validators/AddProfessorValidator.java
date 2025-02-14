@@ -24,15 +24,13 @@ public class AddProfessorValidator implements Validator{
     public void validate(Object target, Errors errors) {
 
         Professor professor = (Professor) target;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Error.empty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Error.empty");
-        if (professor.getDNI().length() < 9) { //ultimo que sea char
-            errors.rejectValue("dni", "Error.signup.dni.length");
+        if (professor.getName().length() < 2) { //ultimo que sea char
+            errors.rejectValue("dni", "Error.signup.name.length");
         }
         //DNI unico
-        if (professorService.getProfessorByDNI(professor.getDNI()) != null) {
-            errors.rejectValue("dni", "Error.signup.dni.duplicate");
-        }
+//        if (professorService.getProfessorByDNI(professor.getDNI()) != null) {
+//            errors.rejectValue("dni", "Error.signup.dni.duplicate");
+//        }
         //Nombre y apellido con espacios
 
         //mirar el signup de User

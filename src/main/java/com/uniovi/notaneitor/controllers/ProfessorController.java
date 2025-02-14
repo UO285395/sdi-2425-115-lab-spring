@@ -31,7 +31,7 @@ public class ProfessorController {
     }
 
     @RequestMapping(value = "/professor/add", method = RequestMethod.POST)
-    public String setProfessor(@Validated @ModelAttribute Professor professor, BindingResult result, Model model) {
+    public String setProfessor(@Validated Professor professor, BindingResult result) {
         addProffesorValidator.validate(professor, result);
         if (result.hasErrors()) {
             return "professor/add";

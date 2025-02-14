@@ -45,11 +45,11 @@ public class Professor {
         this.name = name;
     }
 
-    public String getSurname() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setSurname(String surname) {
+    public void setLastName(String surname) {
         this.lastName = surname;
     }
 

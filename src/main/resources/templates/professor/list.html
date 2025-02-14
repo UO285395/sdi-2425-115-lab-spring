@@ -9,7 +9,7 @@
     <div th:each="professor: ${professorList}">
         <p>
             <span th:text="${professor.name}"></span>
-            <span th:text="${professor.surname}"></span>
+            <span th:text="${professor.lastName}"></span>
             <span th:text="${professor.category}"></span>
             <a th:href="${'/professor/details/' + professor.id}">detalles</a>
             <a th:href="${'/professor/edit/' + professor.id}">editar</a>
