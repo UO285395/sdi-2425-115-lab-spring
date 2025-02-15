@@ -11,6 +11,7 @@ import com.uniovi.notaneitor.entities.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,11 +35,10 @@ public class MarksController {
 //        return marksService.getMarks().toString();
 //    }
     @RequestMapping("/mark/list")
-    public String getList(Model model) {
-//        Set<Mark> consultedList = (Set<Mark>) (httpSession.getAttribute("consultedList") != null ?
-//                httpSession.getAttribute("consultedList") : new HashSet<>());
-//        model.addAttribute("consultedList", consultedList);
-        model.addAttribute("marksList", marksService.getMarks());
+    public String getList(Model model, Principal principal){
+        String dni = principal.getName(); // DNI es el name de la autenticación
+        User user = usersService.getUserByDni(dni);
+        model.addAttribute("marksList", marksService.getMarksForUser(user) );
         return "mark/list";
     }
 
@@ -95,10 +95,13 @@ public String setMark(@Validated Mark mark, BindingResult result) {
     }
 
     @RequestMapping("/mark/list/update")
-    public String updateList(Model model) {
-    model.addAttribute("markList",marksService.getMarks());
-    return "mark/list::marksTable";
+    public String updateList(Model model, Principal principal) {
+        String dni = principal.getName(); // DNI es el name de la autenticación
+        User user = usersService.getUserByDni(dni);
+        model.addAttribute("marksList", marksService.getMarksForUser(user));
+        return "mark/list :: tableMarks";
     }
+
 
 
     @RequestMapping(value = "/mark/edit/{id}", method = RequestMethod.POST)
