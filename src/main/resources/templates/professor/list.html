@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head">
     <title>Professors</title>
     <meta charset="utf-8"/> </head>
@@ -11,11 +12,10 @@
             <span th:text="${professor.name}"></span>
             <span th:text="${professor.lastName}"></span>
             <span th:text="${professor.category}"></span>
-            <a th:href="${'/professor/details/' + professor.id}">detalles</a>
-            <a th:href="${'/professor/edit/' + professor.id}">editar</a>
-            <a th:href="${'/professor/delete/' + professor.id}">delete</a>
+            <a th:href="${'/professor/details/' + professor.id}" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_PROFESSOR')">detalles</a>
+            <a th:href="${'/professor/edit/' + professor.id}" sec:authorize="hasRole('ROLE_ADMIN')">editar</a>
+            <a th:href="${'/professor/delete/' + professor.id}" sec:authorize="hasRole('ROLE_ADMIN')">delete</a>
         </p>
-
     </div>
 <footer th:replace="fragments/footer"></footer>
 </body>
