@@ -1,8 +1,11 @@
 package com.uniovi.notaneitor.controllers;
 
+import com.uniovi.notaneitor.services.MarksService;
 import com.uniovi.notaneitor.services.RolesService;
 import com.uniovi.notaneitor.services.SecurityService;
 import com.uniovi.notaneitor.validators.SignUpFormValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,12 +23,14 @@ public class UsersController {
     private final SecurityService securityService;
 
     private final RolesService rolesService;
+    private final MarksService marksService;
 
-    public UsersController(SignUpFormValidator signUpFormValidator, UsersService usersService, SecurityService securityService, RolesService rolesService) {
+    public UsersController(SignUpFormValidator signUpFormValidator, UsersService usersService, SecurityService securityService, RolesService rolesService, MarksService marksService) {
         this.signUpFormValidator = signUpFormValidator;
         this.usersService = usersService;
         this.securityService = securityService;
         this.rolesService = rolesService;
+        this.marksService = marksService;
     }
 
     @RequestMapping("/user/list")
@@ -100,11 +105,13 @@ public class UsersController {
     }
 
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public String home(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String dni = auth.getName();
-        User activeUser = usersService.getUserByDni(dni);
-        model.addAttribute("markList", activeUser.getMarks());
+    public String home(Model model, Pageable pageable) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String dni = auth.getName();
+//        User activeUser = usersService.getUserByDni(dni);
+        Page<Mark> marks = marksService.getMarks(pageable);
+        model.addAttribute("markList", marks.getContent());
+        model.addAttribute("page", marks);
         return "home";
     }
 

@@ -56,15 +56,20 @@ public class MarksService {
         marksRepository.deleteById(id);
     }
 
-    public void setMarkResend(boolean revised, Long id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String dni = auth.getName();
-        Mark mark = marksRepository.findById(id).get();
-        if(mark.getUser().getDni().equals(dni) ) {
-            marksRepository.updateResend(revised, id);
-        }
+//    public void setMarkResend(boolean revised, Long id) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String dni = auth.getName();
+//        Mark mark = marksRepository.findById(id).get();
+//        if(mark.getUser().getDni().equals(dni) ) {
+//            marksRepository.updateResend(revised, id);
+//        }
+//
+//    }
+public void setMarkResend(boolean revised, Long id) {
 
-    }
+        marksRepository.updateResend(revised, id);
+
+}
 
     public Page<Mark> getMarksForUser(Pageable pageable, User user) {
         Page<Mark> marks = new PageImpl<Mark>(new LinkedList<Mark>());

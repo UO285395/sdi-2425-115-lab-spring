@@ -26,6 +26,7 @@ public class MarksController {
     private final AddMarksValidator addMarksValidator;
     private final MarksService marksService;
     private final UsersService usersService;
+
     public MarksController(HttpSession httpSession, AddMarksValidator addMarksValidator, MarksService marksService, UsersService usersService) {
         this.httpSession = httpSession;
         this.addMarksValidator = addMarksValidator;
@@ -38,7 +39,7 @@ public class MarksController {
 //    public String getList(){
 //        return marksService.getMarks().toString();
 //    }
-    @RequestMapping("/mark/list")
+    @RequestMapping(value = {"/mark/list"}, method = RequestMethod.GET)
     public String getList(Model model, Pageable pageable, Principal principal,
                           @RequestParam(value = "", required = false) String searchText) {
         String dni = principal.getName(); // DNI es el name de la autenticación
@@ -49,7 +50,7 @@ public class MarksController {
         } else {
             marks = marksService.getMarksForUser(pageable, user);
         }
-        model.addAttribute("marksList", marks.getContent());
+        model.addAttribute("markList", marks.getContent());
         model.addAttribute("page", marks);
         return "mark/list";
     }
@@ -109,9 +110,9 @@ public String setMark(@Validated Mark mark, BindingResult result) {
 
     @RequestMapping("/mark/list/update")
     public String updateList(Model model, Pageable pageable, Principal principal) {
-        String dni = principal.getName(); // DNI es el name de la autenticación
-        User user = usersService.getUserByDni(dni);
-       Page<Mark> marks = marksService.getMarksForUser(pageable, user);
+//        String dni = principal.getName(); // DNI es el name de la autenticación
+//        User user = usersService.getUserByDni(dni);
+        Page<Mark> marks = marksService.getMarks(pageable);
         model.addAttribute("marksList", marks.getContent());
         return "mark/list :: tableMarks";
     }
